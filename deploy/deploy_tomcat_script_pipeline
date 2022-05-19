@@ -6,7 +6,7 @@ node('slave_1') {
     stage('maven编译打包') {
         sh '''
             . ~/.bashrc
-            
+            export pwd=`pwd`
             cd $pwd/root
             mvn clean install -Dmaven.test.skip=true
             
