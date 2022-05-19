@@ -1,11 +1,11 @@
-node('master') {
+node('slave_1') {
     stage('同步源码') {
-            git([url: 'git@gitee.com:11547299/jeesite4.git', branch: '${branch}'])
+            git([url: 'https://github.com/qinqian2/jeesite4.git', branch: '${branch}'])
     }
 
     stage('maven编译打包') {
         sh '''
-            . ~/.bash_profile
+            . ~/.bashrc
             
             cd $pwd/root
             mvn clean install -Dmaven.test.skip=true
