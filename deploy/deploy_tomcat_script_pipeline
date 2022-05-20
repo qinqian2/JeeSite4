@@ -1,9 +1,5 @@
 node('slave_1') {
 
-   environment {
-		PATH=/usr/local/java/bin:/usr/local/java/jre/bin:/usr/local/apache-maven-3.8.5/bin:$PATH
-    }
-
     stage('同步源码') {
             git([url: 'https://github.com/qinqian2/jeesite4.git', branch: '${branch}'])
     }
