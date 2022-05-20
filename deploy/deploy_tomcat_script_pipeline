@@ -1,4 +1,7 @@
 node('slave_1') {
+   environment {
+        tomcat_home=/usr/local/apache-tomcat-8.5.78
+    }
 
     stage('同步源码') {
             git([url: 'https://github.com/qinqian2/jeesite4.git', branch: '${branch}'])
