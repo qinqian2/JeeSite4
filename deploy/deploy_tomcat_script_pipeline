@@ -19,7 +19,6 @@ node('slave_1') {
     stage('停止 tomcat') {
         sh '''
             ## 停止tomcat的函数, 参数$1带入tomcat的路径$TOMCAT_PATH
-            export tomcat_home=`/usr/local/apache-tomcat-8.5.78`
             killTomcat()
             {
                 pid=`ps -ef|grep $1|grep java|awk '{print $2}'`
@@ -38,7 +37,6 @@ node('slave_1') {
 
     stage('清理环境') {
         sh '''
-        export tomcat_home=`/usr/local/apache-tomcat-8.5.78`
             ## 删除原有war包
             rm -f $tomcat_home/webapps/ROOT.war
             rm -rf $tomcat_home/webapps/ROOT
@@ -47,7 +45,6 @@ node('slave_1') {
 
     stage('部署新的war包') {
         sh '''
-            export tomcat_home=`/usr/local/apache-tomcat-8.5.78`
             cp web/target/web.war $tomcat_home/webapps/
             cd $tomcat_home/webapps
             mv web.war ROOT.war
@@ -56,7 +53,6 @@ node('slave_1') {
 
     stage('启动tomcat') {
         sh '''
-            export tomcat_home=`/usr/local/apache-tomcat-8.5.78`
             JENKINS_NODE_COOKIE=dontkillme
             cd $tomcat_home/bin
             sh startup.sh
