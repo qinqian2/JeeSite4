@@ -39,7 +39,7 @@ jdbc:
   driver: com.mysql.jdbc.Driver
   url: jdbc:mysql://192.168.174.128:3306/jeesite?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&allowPublicKeyRetrieval=true
   username: root
-  password: 12345678
+  password: 123456
   testSql: SELECT 1
 
 # MyBatis 相关
