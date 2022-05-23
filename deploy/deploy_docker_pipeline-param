@@ -1,3 +1,4 @@
+#!/bin/bash
 pipeline {
     agent {
         label 'slave_1'
@@ -23,7 +24,7 @@ pipeline {
 
         stage('设定配置文件'){
             steps{
-                bash '''
+                sh '''
                     . ~/.bashrc 
                     
                     export os_type=`uname`
@@ -39,7 +40,7 @@ pipeline {
 
         stage('Maven 编译'){
             steps {
-                bash '''
+                sh '''
                     . ~/.bashrc
                     
                     cd ${WORKSPACE}/root
@@ -55,19 +56,19 @@ pipeline {
             steps {
                 script{
                     try{
-                        bash 'docker stop ${docker_container}-${env}'
+                        sh 'docker stop ${docker_container}-${env}'
                     }catch(exc){
                         echo "The container ${docker_container}-${env} does not exist"
                     }
 
                     try{
-                        bash 'docker rm ${docker_container}-${env}'
+                        sh 'docker rm ${docker_container}-${env}'
                     }catch(exc){
                         echo "The container ${docker_container}-${env} does not exist"
                     }
 
                     try{
-                        bash 'docker rmi ${docker_image}-${env}'
+                        sh 'docker rmi ${docker_image}-${env}'
                     }catch(exc){
                         echo "The docker image ${docker_image}-${env} does not exist"
                     }
@@ -77,7 +78,7 @@ pipeline {
 
         stage('生成新的Docker Image'){
             steps {
-                bash '''
+                sh '''
                     cd ${WORKSPACE}/web/bin/docker
                     rm -f web.war
                     cp ${WORKSPACE}/web/target/web.war .
@@ -88,7 +89,7 @@ pipeline {
 
         stage('启动新Docker实例'){
             steps {
-                bash '''
+                sh '''
                     if [[ "${env}" == "prod" ]]; then
                         export port="8899"
                     else
